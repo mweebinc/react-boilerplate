@@ -1,0 +1,40 @@
+:root {
+  --offcanvas-width: 270px;
+  --topNavHeight: 54px;
+}
+
+.sidebar-nav {
+  width: var(--offcanvas-width);
+  border: 0;
+}
+
+.nav-item .nav-link .float-end{
+  transition: transform 0.3s ease-in-out;
+
+}
+.nav-item .nav-link.collapsed .float-end {
+  transform: rotate(-90deg);
+}
+
+/* large tablet and laptop */
+@media (min-width: 992px) {
+  .offcanvas {
+    transform: none;
+    visibility: visible !important;
+  }
+
+  .offcanvas.show {
+    transform: translateX(-100%);
+  }
+
+  main {
+    transition: ease-in-out .3s;
+    margin-left: var(--offcanvas-width);
+  }
+
+  .offcanvas.show ~ main {
+    margin-left: 0;
+  }
+}
+
+
