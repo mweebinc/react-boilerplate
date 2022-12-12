@@ -1,65 +1,65 @@
 # MWeeb React Boiler Plate
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and add
-functionality to easily Develop and Deploy a Mobile First Web Application.
+functionality to easily develop and deploy a mobile first web application.
 
-ReactJS is Client Side Framework to run in browser, MWeeb used nq-api to save and get the data from the server. you can
-use other API like [parse-platform](https://parseplatform.org) or API you prepared.
+ReactJS is client side framework to run in browser, MWeeb used nq-api to save and get the data from the server. You can
+use other API like [parse-platform](https://parseplatform.org) or API you preferred.
 
-## Software architecture
+## Software Architecture
 
-Our design pattern inspired from MVP (Model View Presenter) pattern, but we don't have model Class instead we use
-Javascript Object to represent the data we implement this pattern to separate the UI and the logic to for readable code
-and testable.
+Our design pattern inspired from MVP (Model View Presenter) pattern, but we don't have model class instead we use
+JavaScript object to represent the data we implement this pattern to separate the UI and the logic for readable code and
+testable.
 
 * Single Responsibility - Make sure all our code has a single responsibility as possible.
 * Dependency Injection - Inject the dependency from the outside to easy mock in testing.
 
 ### Concept
 
-* Domain - Domain or entities the specific Object Model in our Application.
-* UseCase - Rhe specific task in domain that we execute in Presenter.
-* View - The view is our Component Class Page, Javascript don't have interface so our component directly inject to our
-  Presenter.
+* Domain - Domain or entities the specific object model in our application.
+* UseCase - The specific task in domain that we execute in presenter.
+* View - The view is our component class page, JavaScript don't have interface so our component directly inject to our
+  presenter.
 * Presenter - All custom logic before we execute the use-case are here.
 
 ### Folder Structure
 
-We use flat directory structure as possible
+We use flat directory structure as possible.
 
 #### Folders
 
-* base - All base class is here.
-* pages - All Class Page store here.
-* components - All custom component not in nq-component are here.
-* domain - All use-cases are here.
+* Base - All base class is here.
+* Pages - All class Page store here.
+* Components - All custom component not in nq-component are here.
+* Domain - All use-cases are here.
 
 #### Modules
 
-* App - The Root Component Handle the routing.
-* BasePage - A Parent Class to all Pages common function are here.
+* App - The root component handle the routing.
+* BasePage - A parent class to all pages common function are here.
 * AppContext - We use this module for global state.
-* AppProvider - A subcomponent of the App and store the global state.
-* withRouter - A high order component use for navigation.
+* AppProvider - A subcomponent of the app and store the global state.
+* WithRouter - A high order component use for navigation.
 * Functions - All other custom function is in src folder.
 
 ## Best Practices
 
-We develop as team so we follow code conduct and best practices as possible.
+We develop as team, so we follow code conduct and best practices as possible.
 
 ### Naming Convention
 
-* folders - Should use lowercase and use hyphens for space.
-* functions - Should start with lowercase and be a verb.
-* classes - Should start with uppercase and be a noun.
-* variables - Should start with lowercase.
-* js file - Should same with its content either class or function.
+* Folders - Should use lowercase and use hyphens for space.
+* Functions - Should start with lowercase and be a verb.
+* Classes - Should start with uppercase and be a noun.
+* Variables - Should start with lowercase.
+* JS file - Should same with its content either class or function.
 
 #### Variables
 
-* boolean - Should begin with is, has, or add ed e.g, isEdit,hasValue,checked the default value of boolean is false so
+* Boolean - Should begin with is, has, or add ed e.g, isEdit,hasValue,checked the default value of boolean is false so
   avoid using word with negative meaning as possible.
-* null - Use null instead of undefined to declare a null object.
+* Null - Use null instead of undefined to declare a null object.
 
 ### Comments
 
@@ -67,24 +67,26 @@ Used comment to easily remember and understand your code and for other developer
 
 We use JSDoc to generate a code documentation, so it's important that our comments are supported to JSDoc.
 
-#### functions
+Must answer the following questions:
 
-* What a function does
-* What are the function's parameters are
-* What a function returns
+#### Functions
+
+* What a function does?
+* What are the function's parameters are?
+* What a function returns?
 
 #### Variable
 
 Variable comment is optional add comment in variable if you have complex variable.
 
-* What variable for
-* Type of the variable
+* What variable for?
+* Type of the variable?
 
 #### Class
 
-* What class does
-* What are the properties of the class
-* What are the methods of the class
+* What class does?
+* What are the properties of the class?
+* What are the methods of the class?
 
 ## Technologies Used
 
@@ -99,43 +101,24 @@ Variable comment is optional add comment in variable if you have complex variabl
 
 ### Installation
 
-first clone this package
+* Fork this project and clone the fork on your local machine:
 
-```
-git clone https://repository.git
-```
+```sh
+$ git clone https://repository.git
+$ cd project # go into the clone directory
+$ yarn install # install all the node dependencies
+$ yarn run link # run all local link
+$ yarn start link # start local development
 
-then goto the folder
-
-```
-cd sushi-admin
-```
-
-install all dependency
-
-```
-yarn install
-```
-
-run all local link
-
-```
-yarn run link
-```
-
-start local development
-
-```
-yarn start
 ```
 
 ### Testing
 
-Testing in Programming is important we use
+Testing in programming is important we use
 
 #### Unit Testing
 
-* We need to unit test our presenter and other custom function.
+* We need to unit test our presenter and other custom functions.
 
 ## Production
 
@@ -146,48 +129,21 @@ Testing in Programming is important we use
 
 ### Recommended Hardware
 
-* ubuntu 18
-* minimum of 20gb storage
-* minimum of 1gb ram
-* minimum of 1 CPU
+* Ubuntu 18
+* Minimum of 20gb storage
+* Minimum of 1gb ram
+* Minimum of 1 CPU
 
 ### Deployment
 
-build this project to our local machine.
-
-```
-yarn build
-```
-
-add all changes to our git
-
-```
-git add .
-```
-
-commit all changes
-
-```
-git commit -m "publish"
-```
-
-push to the master
-
-```
-git push
-```
-
-clone this project to our server
-
-```
-git clone repository.git
-```
-
-goto this folder and run docker
-
-```
-cd your-project
-docker-compose up
+```sh
+$ yarn build # Build this project to our local machine.
+$ git add . # add all changes to our git.
+$ git commit -m "publish" # commit all changes
+$ git push # push to the master
+$ git clone repository.git # clone this project to our server
+$ cd project # go into the clone directory
+$ docker-compose up # run docker
 ```
 
 ### Maintenance
@@ -201,7 +157,7 @@ Contributors of this Project are welcome just fork this project make changes and
 
 ## Issues
 
-if you want to file a bug click issues and click new issue and submit.
+If you want to file a bug click issues and click new issue and submit.
 
 ## Reference
 
