@@ -17,8 +17,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "build-sass": "sass scss/custom.scss public/assets/css/custom.css",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build:sass": "sass scss/custom.scss public/assets/css/custom.css",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "link": "yarn link nq nq-component"
