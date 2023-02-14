@@ -2,7 +2,7 @@ import Queue from 'nq';
 
 class SignOutUseCase {
     execute() {
-        return Queue.User.signOut();
+        return new Queue.User().signOut();
     }
 }
 

@@ -1,10 +1,13 @@
+import React from "react";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import AppProvider from "./AppProvider";
 import SignInPage from "./pages/signin/SignInPage";
 import MainPage from "./pages/main/MainPage";
 import SignUpPage from "./pages/signup/SignUpPage";
-import React from "react";
+import Queue from 'nq';
 
+Queue.setUrl('https://api.innque.com/v1');
+Queue.setApplicationId('6560588f36297abd70cb7433774d5e09');
 
 function App() {
     return (

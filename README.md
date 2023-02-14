@@ -171,3 +171,4 @@ If you want to file a bug click issues and click new issue and submit.
 * https://www.serendipidata.com/posts/naming-guidelines-for-boolean-variables
 * https://guides.lib.berkeley.edu/how-to-write-good-documentation
 * https://dev.to/dyarleniber/setting-up-a-ci-cd-workflow-on-github-actions-for-a-react-app-with-github-pages-and-codecov-4hnp
+* https://stackabuse.com/redirects-in-react-router/

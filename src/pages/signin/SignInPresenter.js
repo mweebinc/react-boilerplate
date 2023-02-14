@@ -5,11 +5,9 @@ class SignInPresenter {
     }
 
     submit({email, password}) {
-        const masterKey = this.view.getMasterKey();
         const user = {
             email,
-            password,
-            masterKey
+            password
         }
         this.view.showProgress();
         Promise.resolve()

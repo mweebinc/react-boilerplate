@@ -2,7 +2,7 @@ import Queue from 'nq';
 
 class SignInUseCase {
     execute(user) {
-        return Queue.User.signIn(user);
+        return new Queue.User().signIn(user);
     }
 }
 
