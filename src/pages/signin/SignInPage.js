@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import SignInPresenter from "./SignInPresenter";
-import {signInUseCase} from "../../domain/user";
+import {signInUseCase} from "../../usecases/user";
 import {Button, InputString, InputPassword} from "nq-component";
 import BasePage from "../../base/BasePage";
 import withRouter from "../../withRouter";

@@ -4,7 +4,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 functionality to easily develop and deploy a mobile first web application.
 
 ReactJS is client side framework to run in browser, MWeeb used nq-api to save and get the data from the server. You can
-use other API like [parse-platform](https://parseplatform.org) or API you preferred.
+use other API like [parse-platform](https://parseplatform.org) or any API you preferred.
+
+# Usage
+
+To use this boilerplate to your new project just download or clone this repo and delete .git folder inside from this
+Project and add your own git repository.
 
 ## Software Architecture
 
