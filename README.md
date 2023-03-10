@@ -64,6 +64,7 @@ you choose are clear, descriptive and easy to understand.
 * JS file - Should same with its content either class or function.
 * Array - Should use plural names.
 * Object - No strict rule whether to use singular or plural names it depend on the context.
+* Event - first the type of event the second is the function does eg. onClickFilter, onInputSearch
 
 #### Variables
 
@@ -168,6 +169,10 @@ Contributors of this Project are welcome just fork this project make changes and
 ## Issues
 
 If you want to file a bug click issues and click new issue and submit.
+
+## Known Issues
+
+* componentDidMount called twice when the component rendered within React.StrictMode
 
 ## Reference
 

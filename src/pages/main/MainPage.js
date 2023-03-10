@@ -1,8 +1,6 @@
 import React from 'react';
 import BasePage from "../../base/BasePage";
-import {Menu} from "nq-component";
-import {OffCanvas} from 'nq-component';
-import {Layout} from "nq-component";
+import {Layout, OffCanvas, Menu, Progress} from "nq-component";
 import HomePage from "../home/HomePage";
 import {getCurrentUserUseCase, signOutUseCase} from "../../usecases/user";
 import {getSchemasUseCase} from "../../usecases/schema";
@@ -65,6 +63,12 @@ class MainPage extends BasePage {
 
     render() {
         const user = {name: 'Juan Dela Cruz', email: 'juan.dela.cruz@yahoo.com'};
+        // const user = this.getCurrentUser();
+        if (!user) {
+            return (
+                <Progress/>
+            )
+        }
         return (
             <Layout>
                 <Layout.Context.Consumer>
@@ -75,10 +79,12 @@ class MainPage extends BasePage {
                                     show={value.collapsed}>
                                     <div className="offcanvas-body">
                                         <nav className="navbar-dark">
-                                            <div className="d-flex p-2">
-                                                <img className="w-100 h-auto img-fluid"
-                                                     style={{filter: 'invert(100%)'}} src="/assets/images/logo.svg"/>
-                                                <div className="p-2 text-white w-75">
+                                            <div className="text-center p-2">
+                                                <img
+                                                    className="w-50"
+                                                    src="/assets/images/logo.svg"
+                                                    style={{filter: 'invert(100%)'}}/>
+                                                <div className="p-2 text-white">
                                                     <h6 className="m-0 text-truncate">{user.name}</h6>
                                                     <p className="text-truncate m-0">
                                                         {user.email}
