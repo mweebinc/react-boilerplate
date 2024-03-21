@@ -3,7 +3,7 @@ import BasePage from "../../base/BasePage";
 import {Layout, OffCanvas, Menu, Progress} from "nq-component";
 import HomePage from "../home/HomePage";
 import {getCurrentUserUseCase, signOutUseCase} from "../../usecases/user";
-import {getSchemasUseCase} from "../../usecases/schema";
+import {getAllSchemasUseCase} from "../../usecases/schema";
 import MainPagePresenter from "./MainPagePresenter";
 
 
@@ -50,7 +50,7 @@ class MainPage extends BasePage {
     constructor(props) {
         super(props);
         this.state = {progress: true};
-        this.presenter = new MainPagePresenter(this, getCurrentUserUseCase(), signOutUseCase(), getSchemasUseCase());
+        this.presenter = new MainPagePresenter(this, getCurrentUserUseCase(), signOutUseCase(), getAllSchemasUseCase());
     }
 
     componentDidMount() {
