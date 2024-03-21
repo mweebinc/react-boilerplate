@@ -1,10 +1,10 @@
 import Queue from 'nq';
 
-class GetSchemasUseCase {
+class GetAllSchemasUseCase {
 
     execute() {
         return new Queue.Schema().find();
     }
 }
 
-export default GetSchemasUseCase;
+export default GetAllSchemasUseCase;

@@ -1,9 +1,9 @@
 import Queue from 'nq';
 
-class FindObjectUseCase {
+class CountObjectUseCase {
     execute(collection, query, options) {
         this.rest = new Queue.Document();
-        return this.rest.find(collection, query, options);
+        return this.rest.count(collection, query, options);
     }
 
     abort() {
@@ -13,4 +13,4 @@ class FindObjectUseCase {
     }
 }
 
-export default FindObjectUseCase;
+export default CountObjectUseCase;

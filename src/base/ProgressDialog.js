@@ -1,4 +1,4 @@
-import {Progress,Spinner} from "nq-component";
+import {Spinner} from "nq-component";
 
 function noop() {
 }
@@ -12,7 +12,7 @@ const defaultProps = {
     icon: 'bi bi-exclamation-circle'
 }
 
-function ConfirmDialog({}) {
+function ConfirmDialog() {
     return (
         <div className="p-3 px-lg-5 py-lg-4">
             <div className="text-center">
