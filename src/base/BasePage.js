@@ -1,7 +1,6 @@
 import React from "react";
-import createPromise from "../createPromise";
 import Context from "../AppContext";
-import { dialog } from "nq-component";
+import { dialog,createPromise } from "nq-component";
 import ProgressDialog from "./ProgressDialog";
 import ConfirmDialog from "./ConfirmDialog";
 

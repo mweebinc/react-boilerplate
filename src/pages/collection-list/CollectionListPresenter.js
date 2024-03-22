@@ -21,7 +21,6 @@ class CollectionListPresenter extends BaseListPresenter {
         this.deleteSchemaUseCase = deleteSchemaUseCase;
     }
 
-
     componentDidUpdate(prevProps) {
         const prevClassName = prevProps.params.name;
         const newClassName = this.view.getCollectionName();
@@ -31,7 +30,6 @@ class CollectionListPresenter extends BaseListPresenter {
             this.getObjects();
         }
     }
-
     onClickImport() {
         const schema = this.view.getSchema(this.view.getCollectionName());
         browseFile('text/csv')
@@ -50,7 +48,6 @@ class CollectionListPresenter extends BaseListPresenter {
                 this.view.showError(error);
             });
     }
-
     onClickExport() {
         const objects = this.view.getSelected();
         const collection = this.view.getCollectionName();
@@ -60,87 +57,6 @@ class CollectionListPresenter extends BaseListPresenter {
             });
     }
 
-
-    onSubmitDeleteField(field) {
-        const collection = this.view.getCollectionName();
-        const schema = this.view.getSchema(collection);
-        delete schema['fields'][field];
-        this.updateSchemaUseCase.execute(schema)
-            .then(() => {
-                this.view.forceUpdate();
-                this.view.closeDialog();
-            })
-            .catch(error => {
-                this.view.showError(error);
-            });
-    }
-
-    onSubmitAddCollection(schema) {
-        this.view.closeDialog();
-        this.addSchemaUseCase.execute(schema)
-            .then(schema => {
-                const schemas = this.view.getSchemas();
-                schemas.push(schema);
-                this.view.setSchemas(schemas);
-                this.view.navigateTo("/collection/" + schema.collection);
-            })
-            .catch(error => {
-                this.view.showError(error);
-            });
-    }
-
-    onSubmitEditCollection(schema) {
-        this.view.closeDialog();
-        this.updateSchemaUseCase.execute(schema)
-            .then(schema => {
-                const schemas = this.view.getSchemas();
-                const index = schemas.findIndex((s) => s.collection === schema.collection);
-                schemas[index] = schema;
-                this.view.setSchemas(schemas);
-            })
-            .catch(error => {
-                this.view.showError(error);
-            });
-    }
-
-    onSubmitDeleteCollection(collection) {
-        if (collection !== this.view.getCollectionName()) {
-            this.view.closeDialog();
-            this.view.showError('Please enter correct Class name');
-            return;
-        }
-        this.deleteSchemaUseCase.execute(collection)
-            .then(() => {
-                this.view.closeDialog();
-                const schemas = this.view.getSchemas();
-                const index = schemas.findIndex(s => s.collection === collection);
-                schemas.splice(index, 1);
-                this.view.setSchemas(schemas);
-                this.view.navigateTo('/collection/' + schemas[0].collection);
-            })
-            .catch(error => {
-                this.view.closeDialog();
-                this.view.showError(error);
-            });
-    }
-
-    onSubmitAccess(acl) {
-        const selected = this.view.getSelected();
-        const collection = this.view.getCollectionName();
-        const promises = selected.map(o => {
-            const change = {id: o.id, acl};
-            o.acl = acl;// mutate the object
-            return this.upsertUseCase.execute(collection, change);
-        });
-        Promise.all(promises)
-            .then(() => {
-                this.view.closeDialog();
-            })
-            .catch(error => {
-                this.view.closeDialog();
-                this.view.showError(error);
-            });
-    }
 }
 
 export default CollectionListPresenter;
