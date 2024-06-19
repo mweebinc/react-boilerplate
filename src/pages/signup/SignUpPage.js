@@ -40,9 +40,9 @@ class SignUpPage extends BasePage {
                                         <div className="text-center p-3 w-100">
                                             <img
                                                 className="img-fluid login-img mb-3 w-50"
-                                                src="/assets/images/logo.svg"
+                                                src="/logo.svg"
                                             />
-                                            <h1 className="fw-bold text-black">NQ PLATFORM</h1>
+                                            <h1 className="fw-bold text-black">App Name</h1>
                                         </div>
                                     </div>
                                 </div>

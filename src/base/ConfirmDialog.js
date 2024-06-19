@@ -1,4 +1,4 @@
-import {classNames} from "nq-component";
+import classNames from "../classNames";
 
 function noop() {
 }
@@ -13,9 +13,8 @@ const defaultProps = {
 }
 
 function ConfirmDialog({title, message, icon, type}) {
-
     return (
-        <div className="text-end">
+        <div className="p-3">
             <div className="text-center">
                 <i className={classNames(icon, 'text-' + type)} style={{fontSize: '5rem'}}></i>
                 <h4 className="fw-bold">{title}</h4>

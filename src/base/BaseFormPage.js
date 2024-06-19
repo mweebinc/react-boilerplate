@@ -3,9 +3,10 @@ import BasePage from "./BasePage";
 class BaseFormPage extends BasePage {
     state = {
         object: {},
-        change:{},
+        change: {},
         advanced: false
     };
+
     componentDidMount() {
         this.presenter.componentDidMount();
     }
@@ -38,7 +39,9 @@ class BaseFormPage extends BasePage {
     onChange(value, field) {
         this.presenter.onChange(value, field);
     }
-
+    onClickAdvance() {
+        this.setState({advanced: !this.state.advanced});
+    }
 }
 
 export default BaseFormPage;

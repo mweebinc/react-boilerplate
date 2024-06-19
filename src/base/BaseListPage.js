@@ -5,6 +5,7 @@ class BaseListPage extends BasePage {
         objects: [],
         selected: [],
         loading: true,
+        progress: 0,
         total: 0,
         count: 0
     };

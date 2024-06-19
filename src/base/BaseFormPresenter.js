@@ -19,7 +19,7 @@ class BaseFormPresenter {
         const collection = this.view.getCollectionName();
         const id = this.object.id || this.view.getObjectId();
         if (id) {
-            const params = {include: ['all']};
+            const params = {includes: ['all']};
             try {
                 this.view.showLoading();
                 this.object = await this.getObjectUseCase.execute(collection, id, {params});

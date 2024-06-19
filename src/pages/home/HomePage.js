@@ -1,5 +1,5 @@
 import BasePage from "../../base/BasePage";
-import {NavBar} from "nq-component";
+import NavBar from "../../components/Navbar";
 
 class HomePage extends BasePage {
 

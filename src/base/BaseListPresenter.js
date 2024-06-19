@@ -13,13 +13,13 @@ class BaseListPresenter {
 
     init() {
         this.limit = 20;
-        this.where = {};
-        this.search = {};
-        this.filter = {};
+        this.where = {}; // Always use in query
+        this.search = {}; // Use in search input
+        this.filter = {}; // Use in filter dropdown
         this.include = ['all'];
         this.keys = undefined; // if keys are specified, only those keys will be returned
         this.sort = {createdAt: -1};
-        this.progress = true;
+        this.loading = true;
         this.reset();
     }
 
@@ -41,14 +41,14 @@ class BaseListPresenter {
 
     async countObjects() {
         try {
-            this.showProgress();
+            this.showLoading();
             const collection = this.view.getCollectionName();
             const query = this.createQuery();
             const {count} = await this.countObjectUseCase.execute(collection, {where: query.where});
             this.count = count;
             this.view.setCount(this.count);
         } catch (error) {
-            this.hideProgress();
+            this.hideLoading();
             this.view.showError(error);
         }
 
@@ -57,7 +57,10 @@ class BaseListPresenter {
     createQuery() {
         const skip = (this.current - 1) * this.limit;
         const query = {
-            limit: this.limit, skip: skip, where: {...this.where, ...this.search, ...this.filter}, include: this.include
+            limit: this.limit,
+            skip: skip,
+            where: {...this.where, ...this.search, ...this.filter},
+            include: this.include
         };
         if (this.sort) {
             query.sort = this.sort;
@@ -73,18 +76,18 @@ class BaseListPresenter {
         const collection = this.view.getCollectionName();
         const query = this.createQuery();
         try {
-            this.showProgress();
+            this.showLoading();
             this.findObjectUseCase.abort();
             const objects = await this.findObjectUseCase.execute(collection, query);
             this.objects = this.objects.concat(objects);
             this.view.setTotal(this.objects.length);
             this.view.setObjects(this.objects);
-            this.hideProgress();
+            this.hideLoading();
         } catch (error) {
-            this.hideProgress();
+            this.hideLoading();
             this.view.showError(error);
         }
-        this.progress = false;
+        this.loading = false;
     }
 
     onSelect(index) {
@@ -112,7 +115,7 @@ class BaseListPresenter {
     }
 
     loadMore() {
-        if (!this.progress) {
+        if (!this.loading) {
             this.current++;
             this.findObjects();
         }
@@ -142,6 +145,7 @@ class BaseListPresenter {
         const collection = this.view.getCollectionName();
         try {
             await this.view.showDialog({title: 'Delete Data?', message: 'Are you sure you want to delete?'});
+            console.log(this.deleteObjectUseCase);
             for (const obj of selected) {
                 await this.deleteObjectUseCase.execute(collection, obj.id);
                 const index = this.objects.indexOf(obj);
@@ -150,19 +154,19 @@ class BaseListPresenter {
             }
             this.view.setSelected([]);
         } catch (error) {
-            this.view.hideProgress();
+            this.view.hideLoading();
             this.view.showError(error);
         }
     }
 
-    showProgress() {
-        this.progress = true;
-        this.view.showProgress();
+    showLoading() {
+        this.loading = true;
+        this.view.showLoading();
     }
 
-    hideProgress() {
-        this.progress = false;
-        this.view.hideProgress();
+    hideLoading() {
+        this.loading = false;
+        this.view.hideLoading();
     }
 }
 
