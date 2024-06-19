@@ -3,7 +3,7 @@ import BasePage from "../../base/BasePage";
 import {Layout, OffCanvas, Menu, Loader,LogoHolder} from "nq-component";
 import HomePage from "../home/HomePage";
 import {getCurrentUserUseCase, signOutUseCase} from "../../usecases/user";
-import {getAllSchemasUseCase} from "../../usecases/schema";
+import {getAllSchemasUseCase} from "../../usecases/schema/";
 import MainPagePresenter from "./MainPagePresenter";
 import menus from "./menus.js";
 import filterAccess from "./filterAccess.js";
@@ -12,12 +12,7 @@ import withRouter from "../../withRouter";
 class MainPage extends BasePage {
     constructor(props) {
         super(props);
-<<<<<<< HEAD
-        this.state = {progress: true};
         this.presenter = new MainPagePresenter(this, getCurrentUserUseCase(), signOutUseCase(), getAllSchemasUseCase());
-=======
-        this.presenter = new MainPagePresenter(this, getCurrentUserUseCase(), signOutUseCase(), getSchemasUseCase());
->>>>>>> master
     }
 
     componentDidMount() {

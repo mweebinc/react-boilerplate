@@ -1,7 +1,7 @@
 import React from 'react';
 import CollectionListPresenter from './CollectionListPresenter';
 import {Button, dialog, InfiniteScroll, Progress, Table} from "nq-component";
-import {addSchemaUseCase, deleteSchemaUseCase, updateSchemaUseCase} from '../../usecases/schema/usecases';
+import {addSchemaUseCase, deleteSchemaUseCase, updateSchemaUseCase} from '../../usecases/schema';
 import {countObjectUseCase, deleteObjectUseCase, findObjectUseCase, upsertUseCase} from '../../usecases/object';
 import {exportCSVUseCase} from '../../usecases/csv/usecases';
 import withRouter from "../../withRouter";

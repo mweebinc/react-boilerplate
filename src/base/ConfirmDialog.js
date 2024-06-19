@@ -1,4 +1,4 @@
-import classNames from "../classNames";
+import {classNames} from "nq-component";
 
 function noop() {
 }
