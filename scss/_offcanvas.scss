@@ -1,0 +1,34 @@
+:root {
+  --offcanvas-width: 270px;
+}
+
+.sidebar-nav {
+  width: var(--offcanvas-width);
+  border: 0;
+}
+
+.offcanvas {
+  --bs-offcanvas-width: var(--offcanvas-width);
+}
+
+
+// reverse the behavior of offcanvas if not mobile
+@media (min-width: 992px) {
+  .offcanvas:not(.show) {
+    transform: none;
+    visibility: visible !important;
+  }
+  .offcanvas.show {
+    transform: translateX(-100%) !important;
+  }
+  main {
+    transition: ease-in-out .3s;
+    padding-left: var(--offcanvas-width);
+  }
+  .offcanvas.show ~ main {
+    padding-left: 0;
+  }
+}
+
+
+

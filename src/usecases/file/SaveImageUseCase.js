@@ -1,7 +1,7 @@
 import Queue from 'nq';
 
-const width = 800;
-const height = 800;
+const width = 500;
+const height = 500;
 
 class SaveImageUseCase {
     execute(file, options = {}) {

@@ -1,8 +1,8 @@
 import Queue from 'nq';
 
 class SignInUseCase {
-    execute(user) {
-        return new Queue.User().signIn(user);
+    execute(user, options) {
+        return new Queue.User().signIn(user, options);
     }
 }
 

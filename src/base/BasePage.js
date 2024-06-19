@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
+import {createPromise} from "nq";
 import Context from "../AppContext";
 import {dialog} from "nq-component";
-import createPromise from "../createPromise";
 import ProgressDialog from "./ProgressDialog";
 import ConfirmDialog from "./ConfirmDialog";
 
@@ -10,24 +10,50 @@ import ConfirmDialog from "./ConfirmDialog";
  */
 
 class BasePage extends React.Component {
+    state = {
+        loading: true, progress: 0,
+    };
 
+    showLoading() {
+        this.setState({loading: true});
+    }
+
+    hideLoading() {
+        this.setState({loading: false});
+    }
+
+    setProgress(progress) {
+        this.setState({progress});
+    }
+
+    // @deprecated
     showProgress() {
-        this.setState({progress: true});
+        this.setState({progress: 1, loading: true});
     }
 
+    // @deprecated
     hideProgress() {
-        this.setState({progress: false});
+        this.setState({progress: 0, loading: false});
     }
 
+    submitting() {
+        this.setState({submitting: true});
+    }
+
+    submissionSuccess() {
+        this.setState({submitting: false});
+    }
+
+    submissionError() {
+        this.setState({submitting: false});
+    }
+
+    // block the UI to show the loading dialog
     showProgressDialog() {
         const promise = createPromise();
         dialog.fire({
-                html: (
-                    <ProgressDialog/>
-                ),
-                footer: false,
-            }
-        );
+            component: <ProgressDialog/>, footer: false,
+        });
         return promise;
     }
 
@@ -39,51 +65,97 @@ class BasePage extends React.Component {
         if (error instanceof Object) {
             return this.showError(error.message, title);
         }
-        if (typeof error === 'string') {
+        if (typeof error === "string") {
             const options = {
                 title: title || "Error",
                 message: error,
-                icon: 'bi bi-x-circle',
-                type: 'danger',
-                positiveButton: 'OKAY',
+                icon: "bi bi-x-circle",
+                type: "danger",
+                positiveButton: "OKAY",
                 negativeButton: false,
             };
-            return this.showDialog(options)
+            return this.showDialog(options);
         }
     }
 
+    // show success dialog
     showSuccess(message, title) {
         const options = {
             title: title || "Success",
             message: message,
-            icon: 'bi bi-check-circle',
-            type: 'success',
-            positiveButton: 'OKAY',
+            icon: "bi bi-check-circle",
+            type: "success",
+            positiveButton: "OKAY",
             negativeButton: false,
         };
         return this.showDialog(options);
     }
 
+    // show confirm dialog
+    showConfirmDialog(message, title, positiveButton, negativeButton) {
+        const options = {
+            title: title || "Are you sure?",
+            message: message,
+            icon: "bi bi-exclamation-triangle",
+            type: "warning",
+            positiveButton: positiveButton || "OKAY",
+            negativeButton: negativeButton || "CANCEL",
+        };
+        return this.showDialog(options);
+    }
+
+    // the generic popup dialog
     showDialog({title, message, icon, type, ...options}) {
         const promise = createPromise();
         dialog.fire({
-                html: (
-                    <ConfirmDialog
-                        icon={icon}
-                        title={title}
-                        message={message}
-                        type={type}/>
-                ),
-                onPositiveClick: () => {
-                    promise.resolve();
-                },
-                onNegativeClick: () => {
-                    promise.reject();
-                },
-                ...options
-            }
-        );
+            component: (<ConfirmDialog
+                    icon={icon}
+                    title={title}
+                    message={message}
+                    type={type}
+                />), onPositiveClick: () => {
+                promise.resolve();
+            }, onNegativeClick: () => {
+                promise.reject();
+            }, ...options,
+        });
         return promise;
+    }
+
+    closeDialog(){
+        dialog.close();
+    }
+
+    // show timeout dialog
+    showSuccessSnackbar(message) {
+        this.showSuccess(message);
+    }
+
+    setCurrentUser(user) {
+        this.context.setGlobalState({user});
+    }
+    getCurrentUser() {
+        return this.context.user;
+    }
+
+    setCurrentRoles(roles) {
+        this.context.setGlobalState({roles});
+    }
+
+    setGlobalState(state) {
+        this.context.setGlobalState(state);
+    }
+
+    getGlobalState(key) {
+        return key ? this.context[key] : this.context;
+    }
+
+    getCurrentRoles() {
+        return this.context.roles;
+    }
+
+    setSchemas(schemas) {
+        this.context.setGlobalState({schemas});
     }
 
     getSchemas() {
@@ -93,40 +165,23 @@ class BasePage extends React.Component {
     getSchema(collection) {
         const schemas = this.getSchemas();
         if (schemas) {
-            return schemas.find(s => s.collection === collection);
+            return schemas.find((s) => s.collection === collection);
         }
     }
 
-    setSchemas(schemas) {
-        this.context.setGlobalState({schemas});
-    }
-
-    setCurrentUser(user) {
-        this.context.setGlobalState({user});
-    }
-    setCurrentRoles(roles) {
-        this.context.setGlobalState({roles});
-    }
-    getCurrentUser() {
-        return this.context.user;
-    }
-    getCurrentRoles() {
-        return this.context.roles;
-    }
-
-    setStatePromise(state) {
+    setStatePromise(object) {
         const promise = createPromise();
-        this.setState(state, promise.resolve);
-        return promise
+        this.setState(object, promise.resolve);
+        return promise;
     }
 
-    navigateTo(url, argument, options) {
+    navigateTo(path, argument, options) {
         const navigate = this.props.navigate;
         if (navigate) {
-            navigate(url, {state: argument, ...options});
+            navigate(path, {state: argument, ...options});
         } else {
             const params = new URLSearchParams(argument).toString();
-            document.location.href = url;
+            document.location.href = `${path}?${params}`;
         }
     }
 
@@ -149,12 +204,28 @@ class BasePage extends React.Component {
         return this.props.params;
     }
 
+    /**
+     * Get the value of query from URL
+     * @returns {*}
+     */
+    getQuery() {
+        return this.props.query;
+    }
+
     navigateBack() {
         this.navigateTo(-1);
     }
 
     reload() {
         window.location.reload();
+    }
+
+    isMobile() {
+        return window.innerWidth <= 768;
+    }
+
+    redirect(url) {
+        window.location.href = url;
     }
 }
 

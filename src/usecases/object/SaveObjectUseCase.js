@@ -1,8 +1,8 @@
 import Queue from 'nq';
 
 class SaveObjectUseCase {
-    execute(collection, object, session) {
-        return new Queue.Document().create(collection, object, session);
+    execute(collection, object, options) {
+        return new Queue.Document().create(collection, object, options);
     }
 }
 

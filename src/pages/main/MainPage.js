@@ -1,112 +1,78 @@
 import React from 'react';
 import BasePage from "../../base/BasePage";
-import {Layout, OffCanvas, Menu, Progress} from "nq-component";
+import {Layout, OffCanvas, Menu, Loader,LogoHolder} from "nq-component";
 import HomePage from "../home/HomePage";
 import {getCurrentUserUseCase, signOutUseCase} from "../../usecases/user";
 import {getSchemasUseCase} from "../../usecases/schema";
 import MainPagePresenter from "./MainPagePresenter";
-
-
-const employeeMenus = [
-    {
-        name: "Employees",
-        route: '/employees'
-    },
-    {
-        name: "Positions",
-        route: '/employees'
-    }
-];
-const userMenus = [
-    {
-        name: "Users",
-        route: '/users'
-    },
-    {
-        name: "Roles",
-        route: '/employees'
-    }
-];
-
-const menus = [
-    {
-        name: "Dashboard",
-        icon: 'bi bi-layout-text-window-reverse',
-        route: '/dashboard'
-    },
-    {
-        name: "User Management",
-        icon: "bi bi-person-lines-fill",
-        route: userMenus,
-    },
-    {
-        name: "Employee Management",
-        icon: "bi bi-people-fill",
-        route: employeeMenus,
-    },
-];
+import menus from "./menus.js";
+import filterAccess from "./filterAccess.js";
+import withRouter from "../../withRouter";
 
 class MainPage extends BasePage {
     constructor(props) {
         super(props);
-        this.state = {progress: true};
         this.presenter = new MainPagePresenter(this, getCurrentUserUseCase(), signOutUseCase(), getSchemasUseCase());
     }
 
     componentDidMount() {
-        // this.presenter.componentDidMount();
+        this.presenter.componentDidMount();
     }
 
-    signOutClick() {
-        this.presenter.signOutClick();
+    onClickSignOut() {
+        this.presenter.onClickSignOut();
     }
+
+
+    onClickMenu(e, item) {
+        e.preventDefault();
+        this.navigateTo(item.route, item);
+    }
+
 
     render() {
-        const user = {name: 'Juan Dela Cruz', email: 'juan.dela.cruz@yahoo.com'};
-        // const user = this.getCurrentUser();
-        if (!user) {
+        const user = this.getCurrentUser();
+        const roles = this.getCurrentRoles();
+        if (this.state.loading) {
             return (
-                <Progress/>
-            )
+                <div className="min-vh-100 d-flex justify-content-center align-items-center ">
+                    <Loader/>
+                </div>
+            );
         }
         return (
             <Layout>
                 <Layout.Context.Consumer>
-                    {
-                        (value =>
-                                <OffCanvas
-                                    onSetShow={value.setCollapse}
-                                    show={value.collapsed}>
-                                    <div className="offcanvas-body">
-                                        <nav className="navbar-dark">
-                                            <div className="text-center p-2">
-                                                <img
-                                                    className="w-50"
-                                                    src="/assets/images/logo.svg"
-                                                    style={{filter: 'invert(100%)'}}/>
-                                                <div className="p-2 text-white">
-                                                    <h6 className="m-0 text-truncate">{user.name}</h6>
-                                                    <p className="text-truncate m-0">
-                                                        {user.email}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <hr className="dropdown-divider bg-white"/>
-                                            <Menu
-                                                menus={menus}/>
-                                        </nav>
-                                    </div>
-                                    <div className="my-2">
-                                        <button
-                                            className="nav-link text-muted btn btn-link"
-                                            onClick={this.signOutClick.bind(this)}>
-                                            <i className="bi bi-power"></i>
-                                            <span className="ms-2 fw-bold small">Log out</span>
-                                        </button>
-                                    </div>
-                                </OffCanvas>
-                        )
-                    }
+                    {(value) => (<OffCanvas onSetShow={value.setCollapse} show={value.collapsed}>
+                        <div className="offcanvas-body">
+                            <nav className="navbar-dark">
+                                <div className="text-center">
+                                    <LogoHolder
+                                        className="bg-white"
+                                        textClassName="text-dark"
+                                        logo="/logo.svg"
+                                    />
+                                    <p className="text-white mt-3">
+                                        {/*{user.name || user.username}*/}
+                                    </p>
+                                </div>
+                                <hr className="bg-white"/>
+                                <Menu
+                                    onClickItem={this.onClickMenu.bind(this)}
+                                    menus={user.isMaster ? menus : filterAccess(menus, roles)}
+                                />
+                            </nav>
+                        </div>
+                        <div className="m-3">
+                            <button
+                                className="nav-link text-white btn btn-link"
+                                onClick={this.onClickSignOut.bind(this)}
+                            >
+                                <i className="bi bi-power"></i>
+                                <span className="ms-2 fw-bold small">Log out</span>
+                            </button>
+                        </div>
+                    </OffCanvas>)}
                 </Layout.Context.Consumer>
 
                 <main className="vh-100 d-flex flex-column">
@@ -117,4 +83,4 @@ class MainPage extends BasePage {
     }
 }
 
-export default MainPage;
+export default withRouter(MainPage);
