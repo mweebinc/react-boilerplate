@@ -1,6 +1,6 @@
 import React from 'react';
 import BasePage from "../../base/BasePage";
-import {Layout, OffCanvas, Menu, Loader,LogoHolder} from "nq-component";
+import {Layout, OffCanvas, Menu, Loader, LogoHolder} from "nq-component";
 import HomePage from "../home/HomePage";
 import {getCurrentUserUseCase, signOutUseCase} from "../../usecases/user";
 import {getAllSchemasUseCase} from "../../usecases/schema/";
@@ -8,6 +8,8 @@ import MainPagePresenter from "./MainPagePresenter";
 import menus from "./menus.js";
 import filterAccess from "./filterAccess.js";
 import withRouter from "../../withRouter";
+import {Routes, Route} from "react-router-dom";
+import NotFoundPage from "../notfound";
 
 class MainPage extends BasePage {
     constructor(props) {
@@ -74,9 +76,11 @@ class MainPage extends BasePage {
                         </div>
                     </OffCanvas>)}
                 </Layout.Context.Consumer>
-
                 <main className="vh-100 d-flex flex-column">
-                    <HomePage></HomePage>
+                    <Routes>
+                        <Route path="/" element={<HomePage/>}/>
+                        <Route path="*" element={<NotFoundPage/>}/>
+                    </Routes>
                 </main>
             </Layout>
         )

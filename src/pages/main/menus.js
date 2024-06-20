@@ -23,7 +23,7 @@ export default [
     {
         name: "Dashboard",
         icon: 'bi bi-layout-text-window-reverse',
-        route: '/dashboard'
+        route: '/'
     },
     {
         name: "User Management",
