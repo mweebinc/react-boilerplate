@@ -1,9 +1,7 @@
 @import './variables.scss';
 @import './inputs.scss';
 @import './buttons.scss';
-//@import '~bootstrap/scss/bootstrap.scss';
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
-
+@import '~bootstrap/scss/bootstrap.scss';
 @import "./offcanvas";
 
 body {

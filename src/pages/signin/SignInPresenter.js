@@ -1,25 +1,29 @@
 class SignInPresenter {
-    constructor(view, signInUseCase) {
-        this.view = view;
-        this.signInUseCase = signInUseCase;
-    }
+  constructor(view, signInUseCase) {
+    this.view = view;
+    this.signInUseCase = signInUseCase;
+    this.change = {};
+  }
 
-    submit({email, password}) {
-        const user = {
-            email,
-            password
-        }
-        this.view.showProgress();
-        Promise.resolve()
-            .then(() => this.signInUseCase.execute(user))
-            .then((user) => {
-                this.view.navigateTo('/');
-            })
-            .catch(error => {
-                this.view.hideProgress();
-                this.view.showError(error);
-            });
+  onChange(value, field) {
+    this.change[field] = value;
+  }
+
+  async submit() {
+    try {
+      const user = {
+        ...this.change,
+      };
+      this.view.showProgress();
+      const signedInUser = await this.signInUseCase.execute(user);
+
+      this.view.navigateTo("/");
+      this.view.reload();
+    } catch (error) {
+      this.view.hideProgress();
+      this.view.showError(error);
     }
+  }
 }
 
 export default SignInPresenter;
