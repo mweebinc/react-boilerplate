@@ -2,10 +2,12 @@ import BasePage from "./BasePage";
 
 class BaseFormPage extends BasePage {
     state = {
+        loading:true,
         object: {},
-        change:{},
+        change: {},
         advanced: false
     };
+
     componentDidMount() {
         this.presenter.componentDidMount();
     }
@@ -35,10 +37,21 @@ class BaseFormPage extends BasePage {
         this.setState({change});
     }
 
+    onChangeObject(object) {
+        this.presenter.onChangeObject(object);
+
+    }
     onChange(value, field) {
         this.presenter.onChange(value, field);
     }
 
+    onClickAdvance() {
+        this.setState({advanced: !this.state.advanced});
+    }
+
+    getOptions() {
+        return {includes: ["all"]};
+    }
 }
 
 export default BaseFormPage;

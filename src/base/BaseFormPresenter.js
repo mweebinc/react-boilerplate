@@ -19,10 +19,10 @@ class BaseFormPresenter {
         const collection = this.view.getCollectionName();
         const id = this.object.id || this.view.getObjectId();
         if (id) {
-            const params = {include: ['all']};
+            const options = this.view.getOptions();
             try {
                 this.view.showLoading();
-                this.object = await this.getObjectUseCase.execute(collection, id, {params});
+                this.object = await this.getObjectUseCase.execute(collection, id, options);
                 this.view.hideLoading();
                 this.view.setObject(this.object);
             } catch (error) {
@@ -38,7 +38,12 @@ class BaseFormPresenter {
         this.view.setObject(this.object);
         this.view.setChange(this.change);
     }
-
+    onChangeObject(object) {
+        this.change = object;
+        this.object = object;
+        this.view.setObject(this.object);
+        this.view.setChange(this.change);
+    }
     async save() {
         const collection = this.view.getCollectionName();
         if (this.object.id) {

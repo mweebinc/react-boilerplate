@@ -3,25 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/jest-dom": "5.17.0",
+    "@testing-library/react": "13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.5",
+    "react": "18.3.0",
+    "react-dom": "18.3.0",
+    "react-router-dom": "6.4.5",
     "react-scripts": "5.0.1",
-    "react-select": "^5.7.0",
-    "web-vitals": "^2.1.4"
+    "react-transition-group": "^4.4.5",
+    "web-vitals": "2.1.4"
   },
   "devDependencies": {
-    "sass": "^1.56.2"
+    "sass": "1.56.2",
+    "bootstrap": "5.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
-    "build:sass": "sass scss/custom.scss public/assets/css/custom.css",
+    "build:sass": "sass scss/index.scss public/assets/css/main.css",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "link": "yarn link nq nq-component"
   },
   "eslintConfig": {

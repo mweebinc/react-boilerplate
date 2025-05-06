@@ -3,7 +3,7 @@ import FindObjectUseCase from './FindObjectUseCase';
 import GetObjectUseCase from './GetObjectUseCase';
 import UpdateObjectUseCase from './UpdateObjectUseCase';
 import DeleteObjectUseCase from "./DeleteObjectUseCase";
-import UpsertUseCase from "./UpsertUseCase";
+import UpsertObjectUseCase from "./UpsertObjectUseCase";
 import AggregateUseCase from "./AggregateUseCase";
 import CountObjectUseCase from "./CountObjectUseCase";
 
@@ -25,7 +25,7 @@ export function deleteObjectUseCase() {
 }
 
 export function upsertUseCase() {
-    return new UpsertUseCase();
+    return new UpsertObjectUseCase();
 }
 
 export function getObjectUseCase() {

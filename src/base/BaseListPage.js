@@ -5,6 +5,7 @@ class BaseListPage extends BasePage {
         objects: [],
         selected: [],
         loading: true,
+        progress: 0,
         total: 0,
         count: 0
     };
@@ -76,7 +77,7 @@ class BaseListPage extends BasePage {
         return Object.keys(schema.fields)
             .filter(key => {
                 const properties = schema.fields[key];
-                if (properties.read === false) {
+                if (properties.read === false || properties.io === false) {
                     return false;
                 }
                 switch (properties._type || properties.type) {

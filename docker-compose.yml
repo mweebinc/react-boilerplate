@@ -1,0 +1,27 @@
+# change myapp the name of your app
+# change mydomain.com to your domain name
+version: '3'
+
+services:
+  server:
+    container_name: myapp
+    image: nginx:alpine3.18
+    restart: always
+    volumes:
+      - ./build:/usr/share/nginx/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.myapp.loadbalancer.server.port=80
+      - traefik.http.routers.myapp.rule=Host("mydomain.com")
+      - traefik.http.routers.myapp.entrypoints=web
+      - traefik.http.routers.myapp_secured.rule=Host("mydomain.com")
+      - traefik.http.routers.myapp_secured.entrypoints=websecure
+      - traefik.http.routers.myapp_secured.tls.certresolver=myhttpchallenge
+      - traefik.http.routers.myapp.middlewares=redirect@file
+
+
+networks:
+  default:
+    external:
+      name: server-network
